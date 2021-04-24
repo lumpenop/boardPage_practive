@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./board_view.css">
+    <link rel="stylesheet" href="/board_view.css">
 </head>
 <body>
     {{id}}님 반갑습니다. <input type="submit"><br>
@@ -19,16 +19,32 @@
             <th>조회수</th>
         </thead>
         <tbody>
+            
+            <a href="/board_write">글쓰기</a><br>
+        
             {% for item in boardTable %}
+            
             <tr>
-                <td>{{item.idx}}</td>
-                <td>{{item.id}}</td>
-                <td>{{item.subject}}</td>
-                <td>{{item.date}}</td>
-                <td>{{item.hit}}</td>
+                    <td>
+                        <form method="get" action="/view?idx="+`{{item.idx}}`>
+                            <input class="subject" type="submit" value="{{item.idx}}" name="idx" id=`{{item.idx}}`>
+                        </form>
+                    </td>
+                    <td>{{item.id}}</td>
+                    <td>
+
+                        <label for=`{{item.idx}}`>
+                            {{item.subject}}
+                        </label>
+                   
+                    </td>
+                    <td>{{item.date}}</td>
+                    <td>{{item.hit}}</td>
+                
             </tr>
-           
+         
             {% endfor %}
+
         </tbody>
     </table>
 </body>
