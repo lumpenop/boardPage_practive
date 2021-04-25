@@ -95,33 +95,6 @@ app.get('/board_view',(req, res)=>{
     }
 })
 
-app.get('/view', (req, res)=>{
- 
-    connection.query(`update board set hit=hit+1 where idx=${req.query.idx}`,(error, reuslts)=>{
-        console.log(req.query.idx);
-        if(error){
-            console.log('view query error1');
-        }
-    })
-
-    connection.query(`select idx, id, subject, hit, content from board where idx=${req.query.idx}`,(error, reuslts)=>{
-    
-        if(!error){
-            res.render('view.html', {
-                idx : reuslts[0].idx,
-                hit : reuslts[0].hit,
-                id : reuslts[0].id,
-                subject : reuslts[0].subject,
-                content : reuslts[0].content
-                }
-            );
-
-        }else{
-            console.log('view query error2');
-        }
-    })
-    
-})
 
 app.post('/board_view',(req, res)=>{
 
@@ -164,6 +137,79 @@ app.post('/board_view',(req, res)=>{
     
 })
 
+app.get('/view', (req, res)=>{
+ 
+    if(LOGIN_CHECK){
+        connection.query(`update board set hit=hit+1 where idx=${req.query.idx}`,(error, reuslts)=>{
+     
+            if(error){
+                console.log('view query error1');
+            }
+        })
+
+        connection.query(`select idx, id, subject, hit, content from board where idx=${req.query.idx}`,(error, reuslts)=>{
+        
+            if(!error){
+                res.render('view.html', {
+                    idx : reuslts[0].idx,
+                    hit : reuslts[0].hit,
+                    id : reuslts[0].id,
+                    subject : reuslts[0].subject,
+                    content : reuslts[0].content
+                    }
+                );
+
+            }else{
+                console.log('view query error2');
+            }
+        })
+    }else{
+        res.redirect('/')
+    }
+    
+})
+
+app.get('/board_modify',(req, res)=>{
+    
+    connection.query(`select idx, id, subject, hit, content from board where idx=${req.query.idx}`,(error, reuslts)=>{
+        
+        if(!error){
+            res.render('board_modify.html', {
+                idx : reuslts[0].idx,
+                user : reuslts[0].id,
+                subject : reuslts[0].subject,
+                content : reuslts[0].content
+                }
+            );
+
+        }else{
+            console.log('modify query error1');
+        }
+    })
+})
+
+app.post('/board_modify', (req, res)=>{
+    connection.query(`update board set subject='${req.body.subject}', content='${req.body.content}' where idx=${req.body.idx}`,(error, reuslts)=>{
+        
+        if(error){
+            console.log('modify query error');
+        }else{
+            res.redirect('/board_view')
+        }
+    })
+})
+
+app.get('/board_del', (req, res)=>{
+  
+    connection.query(`delete from board where idx=${req.query.idx}`,(error, reuslts)=>{
+        
+        if(error){
+            console.log('delete query error');
+        }else{
+            res.redirect('/board_view')
+        }
+    })
+})
 
 
 app.listen(port, ()=>{

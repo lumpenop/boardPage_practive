@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/board_view.css">
+</head>
+<body>
+    글 수정 <br>
+    
+    
+
+    <form action="/board_modify" method="post">
+        글 번호 : <input class="subject" type="text" name="idx" value="{{idx}}" readonly><br>
+        작성자 : {{user}} <br>
+        제목 : <input type="text" name="subject" value="{{subject}}"><br>
+        내용 : <input type="text" name="content" value="{{content}}"><br>
+        <a href="/board_view">취소</a> <input type="submit" value="작성 완료">
+    </form>
+
+
+</body>
+</html>
