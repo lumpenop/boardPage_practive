@@ -13,9 +13,17 @@
     padding: 0;
     margin: 0;
     border-radius: none;
-    
+}
+
+a{
+    text-decoration: none;
+    color: black;
 }
 
 .subject:hover{
+    color: skyblue;
+}
+
+a:hover{
     color: skyblue;
 }

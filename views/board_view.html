@@ -26,16 +26,15 @@
             
             <tr>
                     <td>
-                        <form method="get" action="/view?idx="+`{{item.idx}}`>
+                        <form method="get" action="/view?idx={{item.idx}}">
                             <input class="subject" type="submit" value="{{item.idx}}" name="idx" id=`{{item.idx}}`>
                         </form>
                     </td>
                     <td>{{item.id}}</td>
                     <td>
-
-                        <label for=`{{item.idx}}`>
-                            {{item.subject}}
-                        </label>
+                        
+                        <a href="/view?idx={{item.idx}}">{{item.subject}}</a>
+                           
                    
                     </td>
                     <td>{{item.date}}</td>

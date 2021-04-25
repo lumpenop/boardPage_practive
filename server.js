@@ -81,29 +81,31 @@ app.get('/board_view',(req, res)=>{
 
         connection.query('select idx, id, subject, hit from board', (error, results)=>{
             if(!error){
-                res.redirect('/board_view',{
+                res.render('board_view.html',{
                     id:logedId,
                     boardTable:results
-                
                 })
             }else{
                 console.log('board query error');
             }
         })
               
+    }else{
+        res.redirect('/');
     }
 })
 
 app.get('/view', (req, res)=>{
  
     connection.query(`update board set hit=hit+1 where idx=${req.query.idx}`,(error, reuslts)=>{
-
+        console.log(req.query.idx);
         if(error){
             console.log('view query error1');
         }
     })
 
     connection.query(`select idx, id, subject, hit, content from board where idx=${req.query.idx}`,(error, reuslts)=>{
+    
         if(!error){
             res.render('view.html', {
                 idx : reuslts[0].idx,
