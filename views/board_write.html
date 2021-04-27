@@ -8,13 +8,19 @@
     <link rel="stylesheet" href="/board_view.css">
 </head>
 <body>
-    새 글 작성 <br>
 
-    <form action="/board_write" method="post">
-        제목 : <input type="text" name="subject"><br>
-        내용 : <input type="text" name="content"><br>
-        <a href="/board_view">취소</a> <input type="submit" value="수정">
-    </form>
+    <div class="wrap">
+        <div class="container">
+            새 글 작성 <br>
 
+            <form action="/board_write" method="post">
+                제목 : <input type="text" name="subject"><br>
+                내용 : <input type="text" name="content"><br>
+                <a href="/board_view">취소</a> <input type="submit" value="작성">
+            </form>
+
+        </div>
+    </div>
+    
 </body>
 </html>

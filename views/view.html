@@ -5,16 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/board_view.css">
 </head>
 <body>
-    this is view page <br>
-    idx : {{idx}} 조회수 : {{hit}} <br>
-    글쓴이 : {{id}} <br>
-    제목 : {{subject}} <br>
-    내용 : {{content}} <br>
+
+    <div class="wrap">
+        <div class="container">
+            this is view page <br>
+            idx : {{idx}} 조회수 : {{hit}} <br>
+            글쓴이 : {{id}} <br>
+            제목 : {{subject}} <br>
+            내용 : {{content}} <br>
+            
+            <a href="/board_modify?idx={{idx}}">수정하기</a>
+            <a href="/board_del?idx={{idx}}">삭제하기</a>
+            <a href="/board_view">리스트로</a>
+
+        </div>
+    </div>
     
-    <a href="/board_modify?idx={{idx}}">수정하기</a>
-    <a href="/board_del?idx={{idx}}">삭제하기</a>
     
 </body>
 </html>

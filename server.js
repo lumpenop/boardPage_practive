@@ -26,7 +26,7 @@ const connection = mysql.createConnection({
     password:env.DB_PW,
     database:env.DB_NAME
 });
-connection.connect();
+connection.connect(); // db 연결
 
 app.get('/', (req,res)=>{
     if(LOGIN_CHECK){
@@ -37,6 +37,13 @@ app.get('/', (req,res)=>{
     }
 })
 
+/*
+    app = express
+    express.method([URI], callbackFunction(요청, 응답)=>{
+    })
+    요청 : 클라이언트(사용자)의 요청
+    응답 : 서버의 응답
+*/
 
 app.get('/login',(req, res)=>{
     res.render('login.html',{
@@ -54,11 +61,14 @@ app.get('/join',(req, res)=>{
 })
 
 app.post('/join',(req, res)=>{
-    console.log('join',req.body.id, req.body.pw);
-    res.render('join.html',{
-        
+    connection.query(`insert into user(user_id, user_pw, user_name, gender) values('${req.body.id}', '${req.body.pw}', '${req.body.name}','${req.body.gender}')`, (error, results)=>{
+        if(!error){
+            res.redirect('/login')
+        }else{
+            console.log('join error');
+        }
     })
-    
+   
 })
 
 app.get('/board_write', (req, res)=>{
@@ -68,8 +78,10 @@ app.get('/board_write', (req, res)=>{
 app.post('/board_write',(req, res)=>{
    
     connection.query(`insert into board(id, subject, content) values('${logedId}' ,'${req.body.subject}', '${req.body.content}')`, (error, results)=>{
+        console.log(results.insertId)
         if(!error){
-            res.redirect('/board_view')
+            
+            res.redirect(`/view?idx=${results.insertId}`)
         }else{
             console.log('board query error');
         }
@@ -79,7 +91,7 @@ app.post('/board_write',(req, res)=>{
 app.get('/board_view',(req, res)=>{
     if(LOGIN_CHECK){    
 
-        connection.query('select idx, id, subject, hit from board', (error, results)=>{
+        connection.query('select idx, id, subject, hit from board order by idx desc', (error, results)=>{
             if(!error){
                 res.render('board_view.html',{
                     id:logedId,
@@ -115,16 +127,7 @@ app.post('/board_view',(req, res)=>{
                         if(!error&&String(req.body.pw)==results[0].user_pw){
                             LOGIN_CHECK = true;
                             logedId = req.body.id;
-                            connection.query('select idx, id, subject, hit from board', (error, results)=>{
-                                if(!error){
-                                    res.render('board_view.html',{
-                                        id:req.body.id,
-                                        boardTable:results
-                                    })
-                                }else{
-                                    console.log('board query error');
-                                }
-                            })
+                            res.redirect('/board_view');
                         }else{
                             Alert('아이디와 비밀번호를 확인해주세요')
                         }
@@ -138,12 +141,12 @@ app.post('/board_view',(req, res)=>{
 })
 
 app.get('/view', (req, res)=>{
- 
+    
     if(LOGIN_CHECK){
         connection.query(`update board set hit=hit+1 where idx=${req.query.idx}`,(error, reuslts)=>{
-     
+            
             if(error){
-                console.log('view query error1');
+                console.log('view error');
             }
         })
 
@@ -160,7 +163,7 @@ app.get('/view', (req, res)=>{
                 );
 
             }else{
-                console.log('view query error2');
+                console.log('view select error');
             }
         })
     }else{

@@ -8,43 +8,48 @@
     <link rel="stylesheet" href="/board_view.css">
 </head>
 <body>
-    {{id}}님 <input type="submit"> <a href="/board_write">글쓰기</a><br><br>
+    <div class="wrap">
+        <div class="container">
+            {{id}}님 <input type="submit"> <a class="aBtn" href="/board_write">글쓰기</a><br><br>
 
-    <table class="board_table">
-        <thead>
-            <th>번호</th>
-            <th>작성자</th>
-            <th>제목</th>
-            <th>시간</th>
-            <th>조회수</th>
-        </thead>
-        <tbody>
-            
-            
-        
-            {% for item in boardTable %}
-            
-            <tr>
-                    <td>
-                        <form method="get" action="/view?idx={{item.idx}}">
-                            <input class="subject" type="submit" value="{{item.idx}}" name="idx" id=`{{item.idx}}`>
-                        </form>
-                    </td>
-                    <td>{{item.id}}</td>
-                    <td>
-                        
-                        <a href="/view?idx={{item.idx}}">{{item.subject}}</a>
-                           
-                   
-                    </td>
-                    <td>{{item.date}}</td>
-                    <td>{{item.hit}}</td>
+            <table class="board_table">
+                <thead>
+                    <th>번호</th>
+                    <th>작성자</th>
+                    <th>제목</th>
+                    <th>시간</th>
+                    <th>조회수</th>
+                </thead>
+                <tbody>
+                    
+                    
                 
-            </tr>
-         
-            {% endfor %}
-
-        </tbody>
-    </table>
+                    {% for item in boardTable %}
+                    
+                    <tr>
+                            <td>
+                                <form method="get" action="/view?idx={{item.idx}}">
+                                    <input class="idx" type="submit" value="{{item.idx}}" name="idx" id=`{{item.idx}}`>
+                                </form>
+                            </td>
+                            <td>{{item.id}}</td>
+                            <td>
+                                
+                                <a href="/view?idx={{item.idx}}">{{item.subject}}</a>
+                                   
+                           
+                            </td>
+                            <td>{{item.date}}</td>
+                            <td>{{item.hit}}</td>
+                        
+                    </tr>
+                 
+                    {% endfor %}
+        
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
 </body>
 </html>

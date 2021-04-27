@@ -5,13 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/board_view.css">
 </head>
 <body>
-    <form action="/" method="post">
-        이름:<input type="text" name="name"><br>
-        id:<input type="text" name="id"><br>
-        password:<input type="password" name="pw"><br>
-        <a href="/">취소</a><input type="submit" value="회원가입">
-    </form>
+    <div class="wrap">
+        <div class="container">
+            <form action="/join" method="post">
+                이름:<input type="text" name="name"><br>
+                id:<input type="text" name="id"><br>
+                password:<input type="password" name="pw"><br>
+                gender : <select name="gender" >
+                    <option value="">성별선택</option>
+                    <option value="m">남자</option>
+                    <option value="f">여자</option>
+                </select><br>
+                <a href="/">취소</a><input type="submit" value="회원가입">
+            </form>
+
+        </div>
+    </div>
+    
 </body>
 </html>
